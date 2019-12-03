@@ -11,50 +11,90 @@ const buttonParent = document.querySelector(".nav");
 buttonParent.append(newButton);
 
 let isColored = false;
-newButton.addEventListener("click", function() {
+newButton.addEventListener("click", function(e) {
   if (isColored) {
     document.body.style.background = "white";
     document.body.style.color = "black";
     document.querySelector(".intro").style.color = "black";
+    document.querySelector(".logo-heading").style.color = "black";
+    document.querySelector(".main-navigation").style.background = "white";
+    document.querySelector(".nav-link").style.color = "black";
+    document.querySelector(".footer").style.background = "#FFEBCD";
+    document.querySelector(".footer p").style.color = "#212529";
+    const navColor = document.querySelectorAll(".nav-link");
+    navColor.forEach(element => {
+      element.style.color = "black";
+    });
     isColored = false;
   } else {
     document.body.style.background = "black";
     document.body.style.color = "white";
-    document.querySelector(".logo-heading").style.color = "black";
+    document.querySelector(".logo-heading").style.color = "white";
+    document.querySelector(".main-navigation").style.background = "black";
     document.querySelector(".intro").style.color = "white";
+    document.querySelector(".footer").style.background = "black";
+    document.querySelector(".footer p").style.color = "white";
+    const navColor = document.querySelectorAll(".nav-link");
+    navColor.forEach(element => {
+      element.style.color = "white";
+    });
     isColored = true;
   }
+  e.stopPropagation();
 });
 
-//  -----------------   Mouseover and Mouseleave Event  ------------------>
+//  -----------------   Mouseenter and Mouseleave Event  ------------------>
 
-let intro = document.querySelector(".intro");
-
-intro.addEventListener("mouseover", function() {
-  document.querySelector("intro, h2").style.fontSize = "50px";
-  document.querySelector(".intro").style.color = "orange";
-});
-
-intro.addEventListener("mouseleave", function() {
-  document.querySelector("intro, h2").style.fontSize = "32px";
-  document.querySelector(".intro").style.color = "black";
+document.querySelectorAll(".img-content").forEach(e => {
+  e.addEventListener("mouseenter", () => {
+    e.style.transform = "scale(1.3)";
+    e.style.transition = "transform 0.3s";
+  });
+  e.addEventListener("mouseleave", () => {
+    e.style.transform = "scale(1)";
+    e.style.transition = "transform 0.3s";
+  });
 });
 
 //  -----------------   Resize Event  ------------------>
 
-let widthP = document.createElement("p");
-widthP.textContent = "Width";
-widthP.classList.add("width");
+const firstImg = document.querySelector(".intro img");
 
-const newPParent = document.querySelector(".container");
-newPParent.append(widthP);
+window.addEventListener("resize", () => {
+  firstImg.src =
+    "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
+});
 
-const heightOutput = document.querySelector(".height");
-const widthOutput = document.querySelector(".width");
+//  -----------------   Wheel Event  ------------------>
 
-function windowSize() {
-  heightOutput.textContent = window.innerHeight;
-  widthOutput.textContent = window.innerWidth;
+function zoom(event) {
+  event.preventDefault();
+
+  scale += event.deltaY * -0.01;
+
+  scale = Math.min(Math.max(0.125, scale), 2);
+
+  el.style.transform = `scale(${scale})`;
 }
 
-window.onresize = windowSize;
+let scale = 1;
+const el = document.querySelector(".intro img");
+el.onwheel = zoom;
+
+//  -----------------   Dblclick Event  ------------------>
+
+const changeTitle = document.querySelectorAll("h2").forEach(e => {
+  e.addEventListener("dblclick", () => {
+    e.style.color = "orange";
+  });
+});
+
+//  -----------------   Nav Prevent Default  ------------------>
+
+const stopNav = document.querySelectorAll(".nav-link");
+stopNav.forEach(e => {
+  e.addEventListener("click", link => {
+    link.preventDefault();
+    console.log("stopped link");
+  });
+});
