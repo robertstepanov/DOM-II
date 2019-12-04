@@ -89,6 +89,24 @@ const changeTitle = document.querySelectorAll("h2").forEach(e => {
   });
 });
 
+//  -----------------   Keydown Event  ------------------>
+
+document.addEventListener("keydown", logKey);
+
+function logKey(e) {
+  alert(` ${e.code}`);
+}
+
+//  ----------------- Copy Event  ----------------------->
+
+const logo_heading = document.querySelector(".logo-heading");
+
+logo_heading.addEventListener("copy", event => {
+  const selection = document.getSelection();
+  event.clipboardData.setData("text/plain", selection.toString().toUpperCase());
+  event.preventDefault();
+});
+
 //  -----------------   Nav Prevent Default  ------------------>
 
 const stopNav = document.querySelectorAll(".nav-link");
