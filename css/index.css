@@ -297,6 +297,11 @@ img {
   width: 75%;
   margin: 0 auto 30px;
 }
+.home .content-destination .dropzone {
+  width: 600px;
+  height: 200px;
+  background: lightgrey;
+}
 @media (max-width: 500px) {
   .home .content-destination {
     width: 100%;
